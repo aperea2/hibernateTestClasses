@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="gov.noaa.nws.iris.stationlog.StationLogEntry"
+		schema="iris" table="station_log_entries">
+
+		<id name="id" type="integer">
+			<column name="id" />
+			<generator class="sequence">
+				<param name="sequence">iris.station_log_entries_id_seq</param>
+			</generator>
+		</id>
+
+		<property name="employeeName" type="string">
+			<column name="employee_name" />
+		</property>
+
+		<property name="nwsOffice" type="string">
+			<column name="nws_office" />
+		</property>
+
+		<property name="modifiedTime" type="timestamp">
+			<column name="modified_time" />
+		</property>
+
+		<property name="createdTime" type="timestamp">
+			<column name="created_time" />
+		</property>
+
+		<property name="externalTracking" type="string">
+			<column name="external_tracking" />
+		</property>
+
+		<property name="followupId" type="integer">
+			<column name="followup_id" />
+		</property>
+		<!-- <property name="geom" type="org.hibernatespatial.GeometryUserType"> 
+			<column name="geom" /> </property> -->
+		<property name="imageId" type="integer">
+			<column name="image_id" />
+		</property>
+
+		<property name="important" type="boolean">
+			<column name="important" />
+		</property>
+
+		<property name="relatedContactId" type="integer">
+			<column name="related_contact_id" />
+		</property>
+
+		<property name="relatedImpactId" type="integer">
+			<column name="related_impact_id" />
+		</property>
+
+		<property name="relatedProductId" type="integer">
+			<column name="related_product_id" />
+		</property>
+
+		<property name="relatedStationId" type="integer">
+			<column name="related_station_id" />
+		</property>
+
+		<property name="text" type="string">
+			<column name="text" />
+		</property>
+
+		<set name="stationLogCategoryTypes" schema="iris"
+			table="station_log_categories" lazy="false">
+			<key column="category_type_id" />
+			<many-to-many column="entry_id"
+				class="gov.noaa.nws.iris.stationlog.StationLogCategoryType" />
+		</set>
+
+		<set name="stationLogImages" table="station_log_images" inverse="true"
+			lazy="false">
+			<key>
+				<column name="id" not-null="true" />
+			</key>
+			<one-to-many class="gov.noaa.nws.iris.stationlog.StationLogImage" />
+		</set>
+
+	</class>
+</hibernate-mapping>

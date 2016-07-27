@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="gov.noaa.nws.iris.stationlog.StationLogCategoryType" schema="iris"
+		table="station_log_category_types">
+
+		<id name="id" type="integer">
+			<column name="id" />
+			<generator class="sequence">
+				<param name="sequence">iris.station_log_category_types_id_seq</param>
+			</generator>
+		</id>
+
+		<property name="name" type="string">
+			<column name="name" />
+		</property>
+
+		<property name="categoryType" type="string">
+			<column name="category_type" />
+		</property>
+		
+		<set name="stationLogEntries" schema="iris" table="station_log_categories" lazy="false" inverse="true">
+			<key column="category_type_id" />
+			<many-to-many column="entry_id" class="gov.noaa.nws.iris.stationlog.StationLogCategoryType"/>
+		</set>
+		
+	</class>
+</hibernate-mapping>

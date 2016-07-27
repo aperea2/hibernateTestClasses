@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="gov.noaa.nws.iris.stationlog.StationLogImage" schema="iris"
+		table="station_log_images">
+
+		<id name="id" type="integer">
+			<column name="id" />
+			<generator class="sequence">
+				<param name="sequence">iris.station_log_images_id_seq</param>
+			</generator>
+		</id>
+
+		<property name="image" type="binary">
+			<column name="image" />
+		</property>
+
+		<many-to-one name="stationLogEntry" column="entry_id"
+			class="gov.noaa.nws.iris.stationlog.StationLogEntry" />
+		
+	</class>
+</hibernate-mapping>
