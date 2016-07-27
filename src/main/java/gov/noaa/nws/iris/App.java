@@ -1,78 +1,63 @@
 package gov.noaa.nws.iris;
+
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
 import gov.noaa.nws.iris.stationlog.StationLogCategoryType;
 import gov.noaa.nws.iris.stationlog.StationLogEntry;
+import gov.noaa.nws.iris.stationlog.StationLogImage;
 
 /**
  * Hello world!
  *
  */
 public class App {
+
 	public static void main(String[] args) {
 		System.out.println("Test application for Iris Framework");
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		session.beginTransaction();
-//		StationLogEntry sle = new StationLogEntry();
-//		
-//		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-//		String dateInString = "31-08-1982 10:20:56";
-//		Date date = null;
-//		try {
-//			date = sdf.parse(dateInString);
-//		} catch (ParseException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		System.out.println(date); //Tue Aug 31 10:20:56 SGT 1982
-//		
-//        Date begin = date;
-//        Date end = new Date();
-//        
-//		String nwsOffice="ABQ";
-//		
-//		DetachedCriteria query = DetachedCriteria.forClass(StationLogEntry.class);
-//        List results = new ArrayList<StationLogEntry>();
-//		
-//		try {
-//            session = HibernateUtil.getSessionFactory().openSession();
-//             results = query.getExecutableCriteria(session).list();
-//		
-//        } catch (Exception e) {
-//        	System.out.println(e.getMessage());
-//        }
-//		
-//		results.forEach(result->System.out.println(result));
 
-		session.beginTransaction();
+		StationLogImage sli = new StationLogImage();
+		sli.setId(34);
 
-		StationLogCategoryType slct = new StationLogCategoryType();
-		
-		String name="Other";
-		String categoryType="General";
-		DetachedCriteria query = DetachedCriteria.forClass(StationLogCategoryType.class).add(Restrictions.eq("id", 11))
-				;
-		List results = new ArrayList<StationLogCategoryType>();
-		
-		try {
-          session = HibernateUtil.getSessionFactory().openSession();
-           results = query.getExecutableCriteria(session).list();
-		
-      } catch (Exception e) {
-      	System.out.println(e.getMessage());
-      }
-		
-		results.forEach(result->System.out.println(result));
+		Set<StationLogImage> slis = new HashSet<StationLogImage>(1);
+
+		slis.add(sli);
+
+		StationLogEntry sle = new StationLogEntry();
+
+		sle.setNwsOffice("tes");
+
+		sle.setEmployeeName("Bob");
+		sle.setImportant(false);
+		sle.setText("test 123 from hibernate");
+
+		sle.getStationLogImages().addAll(slis);
+
+		// Prep Work
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
+		// saveOrUpdate example - without transaction
+		Session session5 = sessionFactory.openSession();
+		session5.saveOrUpdate(sle);
+		System.out.println("*****");
+
+		// Close resources
+		sessionFactory.close();
 
 	}
-	
+
 }

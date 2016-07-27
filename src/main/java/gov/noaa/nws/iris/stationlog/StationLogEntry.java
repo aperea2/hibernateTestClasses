@@ -39,7 +39,7 @@ public class StationLogEntry implements java.io.Serializable{
 	private Integer relatedStationId;
 
 	private String text;
-//stock
+
 	private Set<StationLogCategoryType> stationLogCategoryTypes = new HashSet<StationLogCategoryType>(0);
 
 	private Set<StationLogImage> stationLogImages = new HashSet<StationLogImage>(0);
