@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 23, 2009 2:37:35 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+	<class name="gov.noaa.nws.iris.nwsoffice.NwsOffices" schema="iris"
+		table="nws_offices" mutable="false">
+		<comment>A listing of NWS offices including WFOs, RFCs, Regions, etc.</comment>
+		<id name="sid" type="string">
+			<column length="3" name="sid" />
+			<generator class="assigned" />
+		</id>
+		<property name="name" type="string">
+			<column length="40" name="name" not-null="true" />
+		</property>
+		<property name="cccc" type="string">
+			<column length="4" name="cccc" not-null="true" unique="true" />
+		</property>
+		<property name="timezone" type="string">
+			<column name="timezone" not-null="false" />
+		</property>
+
+		<property name="type" type="java.lang.String">
+			<column name="type" />
+		</property>
+		<property name="parentOffice" type="string">
+			<column name="parent_office" not-null="false" />
+		</property>
+		
+		<set name="contacts" schema="iris" table="contact_to_nws_offices" lazy="false" inverse="true">
+			<key column="sid" />
+			<many-to-many column="contact_id" class="gov.noaa.nws.iris.contact.Contact"/>
+		</set>
+			
+
+	</class>
+</hibernate-mapping>

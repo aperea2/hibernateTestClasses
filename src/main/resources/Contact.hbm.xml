@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 23, 2009 2:37:35 PM by Hibernate Tools 3.2.1.GA -->
+
+<hibernate-mapping>
+
+	<class name="gov.noaa.nws.iris.contact.Contact" schema="iris" table="contact">		
+		<comment>General information about a contact (person, organization,	etc.)</comment>
+		
+		<id name="id" type="string">
+			<column name="id" />
+			<generator class="gov.noaa.nws.iris.commons.UUIDGenerator" />
+		</id>
+		
+	    <set name="nwsOffices" schema="iris" table="contact_to_nws_offices" lazy="false">
+			<key column="sid" />
+			<many-to-many column="contact_id" class="gov.noaa.nws.iris.nwsoffice.NwsOffices"/>
+		</set>	
+		
+		<property name="location" type="string">
+			<column name="location" />
+		</property>
+		
+		<property name="jobTitle" type="string">
+			<column name="job_title" />
+		</property>
+		
+		<property name="pointOfContact" type="string">
+			<column name="point_of_contact" />
+		</property>
+		
+		<property name="areaOfResponsibility" type="string">
+			<column name="area_of_responsibility" />
+		</property>
+		
+		<property name="state" type="string">
+			<column name="state" />
+		</property>
+		
+		<property name="isState" type="boolean">
+			<column name="is_state" />
+		</property>
+		
+		<property name="isNational" type="boolean">
+			<column name="is_national" />
+		</property>
+		
+		<property name="isNwsEmployee" type="boolean">
+			<column name="is_nws_employee" />
+		</property>
+		
+		<property name="notes" type="string">
+			<column name="notes" />
+		</property>
+		
+		<property name="createdAt" type="timestamp">
+			<column length="29" name="created_at" />
+		</property>
+		
+		<property name="updatedAt" type="timestamp">
+			<column length="29" name="updated_at" />
+		</property>
+		
+		<property name="deletedAt" type="timestamp">
+			<column length="29" name="deleted_at" />
+		</property>
+		
+		<property name="lastContact" type="timestamp">
+			<column length="29" name="last_contact" />
+		</property>
+		
+		<property name="facebook" type="string">
+			<column name="facebook" />
+		</property>
+		
+		<property name="twitter" type="string">
+			<column name="twitter" />
+		</property>
+		
+		<property name="website" type="string">
+			<column name="website" />
+		</property>
+		
+		<property name="name" type="string">
+			<column name="name" />
+		</property>
+		
+		<property name="isTrainedSpotter" type="boolean">
+			<column name="is_trained_spotter" />
+		</property>
+		<property name="spotterId" type="string">
+			<column name="spotter_id" />
+		</property>
+		<property name="dateTrained" type="timestamp">
+			<column length="29" name="date_trained" />
+		</property>
+		
+		<property name="isHamRadioOp" type="boolean">
+			<column name="is_ham_radio_op" />
+		</property>
+		<property name="callsign" type="string">
+			<column name="ham_radio_callsign" />
+		</property>
+		
+		<property name="isCoop" type="boolean">
+			<column name="is_coop" />
+		</property>
+		<property name="stationId" type="string">
+			<column name="coop_station_id" />
+		</property>
+		
+		 <property name="hasAnemometer" type="boolean">
+	    	<column name="has_anemometer" default="false" />
+	    </property>
+	    <property name="hasBarometer" type="boolean">
+	    	<column name="has_barometer" default="false" />
+	    </property>
+	    <property name="hasRainGauge" type="boolean">
+	    	<column name="has_rain_gauge" default="false" />
+	    </property>
+	    <property name="hasRiverGauge" type="boolean">
+	    	<column name="has_river_gauge" default="false" />
+	    </property>
+	    <property name="river" type="string">
+	    	<column name="river" default="false" length="60" />
+	    </property>
+	    <property name="hasSnow" type="boolean">
+	    	<column name="has_snow" default="false" />
+	    </property>
+	    <property name="hasThermometer" type="boolean">
+	    	<column name="has_thermometer" default="false" />
+	    </property>
+	    <property name="hasWxStation" type="boolean">
+			<column name="has_wx_station" default="false" />
+		</property>
+	    <property name="loadSequence" type="string">
+	    	<column name="load_sequence" default="false" length="1" />
+	    </property>
+	</class>
+	
+</hibernate-mapping>
